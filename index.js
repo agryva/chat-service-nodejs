@@ -1,11 +1,6 @@
 const app = require('express')()
 const http = require('http').createServer(app)
-const io = require('socket.io')(http, {
-    cors: {
-        origin: "*"
-    },
-    transports: ['websocket']
-});
+const io = require('socket.io')(http, {transports: ['websocket']});
 const cors = require('cors')
 const {addUser, getUser, getUsers, removeUser} = require("./users");
 const {get} = require("http");
