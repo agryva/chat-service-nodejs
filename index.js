@@ -5,7 +5,8 @@ const cors = require('cors')
 const {addUser, getUser, getUsers, removeUser} = require("./users");
 const {get} = require("http");
 
-const port = 8881;
+const host = '0.0.0.0';
+const port = process.env.PORT || 3000;
 
 app.use(cors())
 
@@ -40,6 +41,6 @@ io.on('connection', socket => {
     })
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.listen(port, host, () => {
+    console.log(`Example app listening at ${host}:${port}`)
 })
