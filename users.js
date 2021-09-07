@@ -12,9 +12,7 @@ function addUser(socketId, userName, roomId) {
     if (existingUser) return {error : "username already been taken"}
 
     users.push(user)
-
     console.log(users);
-
     return {user};
 }
 
