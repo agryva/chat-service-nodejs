@@ -1,12 +1,12 @@
 const app = require('express')()
 const http = require('http').createServer(app)
-const io = require('socket.io')(http, {transports: ['websocket']});
+const io = require('socket.io')(http);
 const cors = require('cors')
 const {addUser, getUser, getUsers, removeUser} = require("./users");
 const {get} = require("http");
 
 const host = '0.0.0.0';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.use(cors())
 
@@ -41,6 +41,6 @@ io.on('connection', socket => {
     })
 });
 
-app.listen(port, host, () => {
+app.listen(port, () => {
     console.log(`Example app listening at ${host}:${port}`)
 })
