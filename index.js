@@ -15,7 +15,6 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
 
     socket.on('disconnect', () => {
-        // socket.leave(chatID)
         const user = getUser(socket.id)
         removeUser(socket.id)
         if (user) socket.leave(user.roomId);
