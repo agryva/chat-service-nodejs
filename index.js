@@ -1,9 +1,10 @@
 const app = require('express')()
 const http = require('http').createServer(app)
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    allowEIO3: true
+});
 const cors = require('cors')
 const {addUser, getUser, getUsers, removeUser} = require("./users");
-const {get} = require("http");
 
 const host = '0.0.0.0';
 const port = process.env.PORT || 8080;
