@@ -7,7 +7,7 @@ const cors = require('cors')
 const {addUser, getUser, getUsers, removeUser} = require("./users");
 
 const host = '0.0.0.0';
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8889;
 
 app.use(cors())
 
