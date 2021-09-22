@@ -48,6 +48,6 @@ io.on('connection', socket => {
     })
 });
 
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`Example app listening at ${host}:${port}`)
 })
