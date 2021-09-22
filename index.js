@@ -1,11 +1,11 @@
 const app = require('express')()
+const fs = require("fs");
 const http = require('https').createServer({
     cert: fs.readFileSync("./cert.pem"),
     key: fs.readFileSync("./privkey.pem"),
     requestCert: false,
     rejectUnauthorized: false
 },app)
-const fs = require("fs");
 const io = require('socket.io')(http, {
     path: "mysocket"
 });
