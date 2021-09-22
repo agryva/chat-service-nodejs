@@ -6,9 +6,7 @@ const http = require('https').createServer({
     requestCert: false,
     rejectUnauthorized: false
 },app)
-const io = require('socket.io')(http, {
-    path: "mysocket"
-});
+const io = require('socket.io')(http);
 const cors = require('cors')
 const {addUser, getUser, getUsers, removeUser} = require("./users");
 
