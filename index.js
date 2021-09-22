@@ -3,7 +3,7 @@ const socket = require("socket.io");
 const cors = require('cors')
 
 // App setup
-const PORT = 5000;
+const PORT = 5100;
 const app = express();
 const server = app.listen(PORT, function () {
     console.log(`Listening on port ${PORT}`);
