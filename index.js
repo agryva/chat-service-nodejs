@@ -1,24 +1,22 @@
-const app = require('express')()
-const fs = require("fs");
-const http = require('https').createServer({
-    cert: fs.readFileSync("./cert.pem"),
-    key: fs.readFileSync("./privkey.pem"),
-    requestCert: false,
-    rejectUnauthorized: false
-},app)
-const io = require('socket.io')(http);
+const express = require("express");
+const socket = require("socket.io");
 const cors = require('cors')
+
+// App setup
+const PORT = 5000;
+const app = express();
+const server = app.listen(PORT, function () {
+    console.log(`Listening on port ${PORT}`);
+    console.log(`http://localhost:${PORT}`);
+});
 const {addUser, getUser, getUsers, removeUser} = require("./users");
 
-const host = '0.0.0.0';
-const port = process.env.PORT || 8889;
-
 app.use(cors())
+// Static files
+app.use(express.static("public"));
 
-app.get('/', (req, res) => {
-    res.send("Vouch Chat Server Running :)")
-    console.log("ada yang konek");
-})
+// Socket setup
+const io = socket(server);
 
 io.on('connection', socket => {
 
@@ -45,7 +43,3 @@ io.on('connection', socket => {
         io.in(user.roomId).emit('message', { user: user.username, text: message["message"] });
     })
 });
-
-app.listen(port, () => {
-    console.log(`Example app listening at ${host}:${port}`)
-})
