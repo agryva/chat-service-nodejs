@@ -11,8 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "http": "*",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5",
     "socket.io": "^3.1.2",
     "ws": "^7.4.6"
   }
