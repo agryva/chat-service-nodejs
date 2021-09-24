@@ -1,9 +1,10 @@
 require('dotenv').config();
-
+const MONGODB_URL = process.env.MONGODB_URL;
 const express = require("express");
 const socket = require("socket.io");
 const cors = require('cors')
-
+const mongoose = require("mongoose");
+const chatModel = require('./models/chat')
 
 // App setup
 const PORT = 5100;
@@ -13,7 +14,11 @@ const server = app.listen(PORT, function () {
     console.log(`http://localhost:${PORT}`);
 });
 const {addUser, getUser, getUsers, removeUser} = require("./users");
-const db = require('./models')
+
+//Mongoose
+mongoose.connect(MONGODB_URL);
+
+const db = mongoose.connection;
 
 app.use(cors())
 // Static files
@@ -42,7 +47,7 @@ io.on('connection', socket => {
                 socket.join(user.roomId)
                 socket.in(user.roomId).emit('notification', { title: 'Someone\'s here', description: `${user.username} just entered the room` })
                 socket.emit('users', getUsers(user.roomId))
-                let chat = await db.chat.findAll({
+                let chat = await chatModel.find({
                     where: {
                         room: roomId
                     }
@@ -63,7 +68,7 @@ io.on('connection', socket => {
         const user = getUser(socket.id)
         console.log({socket_id: socket.id, user: user.username, text: message })
         io.in(user.roomId).emit('message', { user: user.username, text: message["message"] });
-        db.chat.create({
+        chatModel.create({
             socket_id: socket.id,
             username: user.username,
             room: user.roomId,
